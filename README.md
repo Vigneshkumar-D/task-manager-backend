@@ -1,7 +1,3 @@
-Certainly! Here's the updated `README.md` file with the "Technologies Used" section:
-
----
-
 # Task Manager Application
 
 ## Introduction
@@ -82,15 +78,5 @@ The project follows a modular structure:
 - Get a task by ID: `GET /tasks/:id`
 - Update a task by ID: `PUT /tasks/:id`
 - Delete a task by ID: `DELETE /tasks/:id`
-
-## Contributing
-
-Contributions are welcome! Fork the repository, make your changes, and submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 Feel free to customize the content according to your project's specific details and requirements!
