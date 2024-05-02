@@ -13,6 +13,8 @@ This project is a Task Manager application built using Node.js, Express.js, and 
 - **bcrypt**: Library for hashing passwords.
 - **dotenv**: For loading environment variables from a .env file.
 - **pg**: PostgreSQL client for Node.js.
+- **Jest**: JavaScript testing framework for unit and integration testing.
+- **Supertest**: Library for testing HTTP requests/responses in Node.js applications.
 
 ## Features
 
@@ -79,4 +81,80 @@ The project follows a modular structure:
 - Update a task by ID: `PUT /tasks/:id`
 - Delete a task by ID: `DELETE /tasks/:id`
 
-Feel free to customize the content according to your project's specific details and requirements!
+## Test Cases
+
+### User Service Tests
+
+#### Should register a new user
+
+```javascript
+it('should register a new user', async () => {
+  const res = await request(app)
+    .post('/users/register')
+    .send({
+      username: 'testuser',
+      password: 'testpassword@123'
+    });
+  expect(res.statusCode).toEqual(201);
+  expect(res.body).toHaveProperty('username');
+  expect(res.body.username).toEqual('testuser');
+});
+```
+
+#### Should login an existing user
+
+```javascript
+it('should login an existing user', async () => {
+  const res = await request(app)
+    .post('/users/login')
+    .send({
+      username: 'testuser',
+      password: 'testpassword@123'
+    });
+  expect(res.statusCode).toEqual(200);
+  expect(res.body).toHaveProperty('token');
+});
+```
+
+#### Should return an error for invalid credentials
+
+```javascript
+it('should return an error for invalid credentials', async () => {
+  const res = await request(app)
+    .post('/users/login')
+    .send({
+      username: 'invaliduser',
+      password: 'invalidpassword'
+    });
+  expect(res.statusCode).toEqual(401);
+  expect(res.body).toHaveProperty('message', 'Invalid Username or Password');
+});
+```
+
+### Task Service Tests
+
+#### Should create a new task
+
+```javascript
+it('should create a new task', async () => {
+  const res = await request(app)
+    .post('/tasks')
+    .send({
+      title: 'New Task',
+      description: 'Description of the new task'
+    });
+  expect(res.statusCode).toEqual(201);
+  expect(res.body).toHaveProperty('title', 'New Task');
+});
+```
+
+#### Should delete a task by ID
+
+```javascript
+it('should delete a task by ID', async () => {
+  const taskId = 10; // Replace with an existing task ID
+  const res = await request(app).delete(`/tasks/${taskId}`);
+  console.log("delete ", res.body); // Log the response body
+  expect(res.statusCode).toEqual(204);
+});
+```
