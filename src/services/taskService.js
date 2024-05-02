@@ -41,7 +41,6 @@ exports.createTask = async ({ title, description, status, assignee_id }) => {
 exports.getAllTasks = async () => {
     const query = 'SELECT * FROM tasks';
     const result = await pool.query(query);
-    console.log("result ", result)
     return result.rows;
 };
 
@@ -88,8 +87,9 @@ exports.updateTaskById = async (taskId, { title, description, status, assignee_i
 };
 
 
-exports.deleteTaskById = async (res, taskId) => {
+exports.deleteTaskById = async (taskId) => {
     const query = 'DELETE FROM tasks WHERE id = $1 RETURNING *';
     const values = [taskId];
     const result = await pool.query(query, values);
+    return result.rows[0];
 };

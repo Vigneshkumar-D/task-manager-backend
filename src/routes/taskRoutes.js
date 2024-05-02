@@ -42,8 +42,8 @@ router.put('/:id', authenticateToken, (req, res) => {
 
 router.delete('/:id', authenticateToken, (req, res) => {
     taskService.deleteTaskById(req.params.id)
-        .then((result) => {
-            if (result) {
+        .then((deleteTask) => {
+            if (deleteTask) {
                 res.status(200).json({ message: 'Task deleted successfully.' });
             } else {
                 res.status(404).json({ message: 'Task not found.' });

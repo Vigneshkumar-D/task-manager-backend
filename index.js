@@ -12,6 +12,7 @@ app.use('/tasks', taskRoutes);
 
 app.use('/users', userRoutes);
 
-app.listen(3000, () => {
-    console.log(`Server is running on http://localhost:${3000}`);
+app.listen(3001, () => {
+    console.log(`Server is running on http://localhost:${3001}`);
 });
+module.exports = app;
